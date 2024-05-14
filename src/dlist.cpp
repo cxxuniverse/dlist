@@ -305,6 +305,40 @@ template <typename T> void dlist<T>::reverse()
     tail = tmp_head;
 }
 
+/**
+ * @brief Returns a reference to the data stored in the head node of the list.
+ *
+ * If the list is empty, a std::runtime_error is thrown.
+ *
+ * @tparam T The type of data stored in the list.
+ * @return A const reference to the data stored in the head node.
+ * @throws std::runtime_error if the list is empty.
+ */
+template <typename T> const T &dlist<T>::get_head()
+{
+    if (is_empty())
+        throw std::runtime_error("List is empty, cannot access head data.");
+
+    return head->data;
+}
+
+/**
+ * @brief Returns a reference to the data stored in the tail node of the list.
+ *
+ * If the list is empty, a std::runtime_error is thrown.
+ *
+ * @tparam T The type of data stored in the list.
+ * @return A const reference to the data stored in the tail node.
+ * @throws std::runtime_error if the list is empty.
+ */
+template <typename T> const T &dlist<T>::get_tail()
+{
+    if (is_empty())
+        throw std::runtime_error("List is empty, cannot access tail data.");
+
+    return tail->data;
+}
+
 } // namespace cxc
 
 #endif

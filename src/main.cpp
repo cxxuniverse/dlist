@@ -32,4 +32,9 @@ int main()
     list.reverse();
     list.insert_head(666);
     list.print();
+
+    // list.clear();
+
+    std::cout << "Head: " << list.get_head() << std::endl;
+    std::cout << "Tail: " << list.get_tail() << std::endl;
 }

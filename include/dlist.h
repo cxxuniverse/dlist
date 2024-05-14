@@ -38,8 +38,8 @@ template <typename T> struct dlist
     void clear();
 
     // accessors
-    T get_head();
-    T get_tail();
+    const T &get_head();
+    const T &get_tail();
     void size();
     bool is_empty();
 
