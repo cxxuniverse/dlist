@@ -2,7 +2,7 @@
 
 int main()
 {
-    // cxc::dlist<float> list = {1, 2, 3, 4, 5, 6};
+    cxc::dlist<float> list_1 = {1, 2, 3, 4, 5, 6};
     cxc::dlist<float> list{};
 
     std::cout << "address of list: " << &list << std::endl;
@@ -31,8 +31,9 @@ int main()
     list.insert_head(666);
     list.print();
 
-    // list.clear();
-
     std::cout << "Head: " << list.get_head() << std::endl;
     std::cout << "Tail: " << list.get_tail() << std::endl;
+    std::cout << "size: " << list.size() << std::endl;
+    list.clear();
+    std::cout << "size: " << list.size() << std::endl;
 }

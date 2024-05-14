@@ -22,7 +22,6 @@ template <typename T> struct dlist
     size_t m_size = 0;
     Node<T> *head = nullptr;
     Node<T> *tail = nullptr;
-    cxc::EventListener<Events> _events{};
 
     template <typename... Args> void init(T first, Args... rest);
 
@@ -37,6 +36,7 @@ template <typename T> struct dlist
     void empty();
 
   public:
+    cxc::EventListener<Events> _events{};
     template <typename... Args> dlist(Args... args);
 
     //  inseration / deletion
@@ -58,7 +58,7 @@ template <typename T> struct dlist
     // accessors
     const T &get_head();
     const T &get_tail();
-    void size();
+    const size_t &size();
     bool is_empty();
 
     // search

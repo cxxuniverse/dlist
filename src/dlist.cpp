@@ -16,6 +16,7 @@ namespace cxc
  */
 template <typename T> template <typename... Args> dlist<T>::dlist(Args... args)
 {
+    init_events();
     init(args...);
 }
 
@@ -32,15 +33,13 @@ template <typename T> template <typename... Args> dlist<T>::dlist(Args... args)
  */
 template <typename T> template <typename... Args> void dlist<T>::init(T first, Args... rest)
 {
-    init_events();
-
     if (is_empty())
     {
         Node<T> *new_node = new Node<T>(first, nullptr, nullptr);
         head = new_node;
         tail = new_node;
 
-        // _events.trigger(Events::INCREASE_COUNT);
+        _events.trigger(Events::INCREASE_COUNT);
     }
     else
     {
@@ -48,7 +47,7 @@ template <typename T> template <typename... Args> void dlist<T>::init(T first, A
         tail->next = new_node;
         tail = new_node;
 
-        // _events.trigger(Events::INCREASE_COUNT);
+        _events.trigger(Events::INCREASE_COUNT);
     }
 
     init(rest...);
@@ -100,9 +99,9 @@ template <typename T> void dlist<T>::empty()
  */
 template <typename T> void dlist<T>::init_events()
 {
-    _events.add(Events::EMPTY_COUNT, [this]() { this.empty(); });
-    _events.add(Events::INCREASE_COUNT, [this]() { this.increase(); });
-    _events.add(Events::DECREASE_COUNT, [this]() { this.decrease(); });
+    _events.add(Events::EMPTY_COUNT, [this]() { empty(); });
+    _events.add(Events::INCREASE_COUNT, [this]() { increase(); });
+    _events.add(Events::DECREASE_COUNT, [this]() { decrease(); });
 }
 
 /**
@@ -173,7 +172,7 @@ template <typename T> void dlist<T>::insert_head(Node<T> *node)
         node->prev = nullptr;
         head = node;
 
-        // _events.trigger(Events::INCREASE_COUNT);
+        _events.trigger(Events::INCREASE_COUNT);
     }
     else
     {
@@ -182,7 +181,7 @@ template <typename T> void dlist<T>::insert_head(Node<T> *node)
         head = node;
         tail = node;
 
-        // _events.trigger(Events::INCREASE_COUNT);
+        _events.trigger(Events::INCREASE_COUNT);
     }
 }
 
@@ -215,7 +214,7 @@ template <typename T> void dlist<T>::insert_tail(Node<T> *node)
 
     tail = node;
 
-    // _events.trigger(Events::INCREASE_COUNT);
+    _events.trigger(Events::INCREASE_COUNT);
 }
 
 /**
@@ -243,7 +242,7 @@ template <typename T> void dlist<T>::clear()
     head = nullptr;
     tail = nullptr;
 
-    // _events.trigger(Events::EMPTY_COUNT);
+    _events.trigger(Events::EMPTY_COUNT);
 }
 
 /**
@@ -289,7 +288,7 @@ template <typename T> void dlist<T>::remove_head()
 
         delete tmp;
 
-        // _events.trigger(Events::DECREASE_COUNT);
+        _events.trigger(Events::DECREASE_COUNT);
     }
     else
     {
@@ -298,7 +297,7 @@ template <typename T> void dlist<T>::remove_head()
 
         delete tmp;
 
-        // _events.trigger(Events::DECREASE_COUNT);
+        _events.trigger(Events::DECREASE_COUNT);
     }
 }
 
@@ -329,7 +328,7 @@ template <typename T> void dlist<T>::remove_tail()
 
     delete tmp;
 
-    // _events.trigger(Events::DECREASE_COUNT);
+    _events.trigger(Events::DECREASE_COUNT);
 }
 
 /**
@@ -399,6 +398,17 @@ template <typename T> const T &dlist<T>::get_tail()
         throw std::runtime_error("List is empty, cannot access tail data.");
 
     return tail->data;
+}
+
+/**
+ * @brief Returns the size of the doubly linked list.
+ *
+ * @tparam T The type of elements stored in the list.
+ * @return The size of the list.
+ */
+template <typename T> const size_t &dlist<T>::size()
+{
+    return m_size;
 }
 
 } // namespace cxc
