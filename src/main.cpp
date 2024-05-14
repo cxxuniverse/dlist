@@ -9,20 +9,16 @@ int main()
 
     std::cout << "address of list: " << &list << std::endl;
 
-    // list.print();
-
-    list.insert_head(100);
-    list.insert_tail(101);
-    // list.print();
-
-    list.insert_head(99);
-    list.insert_head(98);
-    // list.print();
-
-    list.insert_tail(102);
+    list.insert(1000);
+    list.insert(1001);
+    list.insert_head(999);
+    list.insert(1002);
     list.print();
 
-    list.clear();
-    std::cout << "after clear: " << std::endl;
+    std::cout << "remove heads & tails" << std::endl;
+    list.remove_head();
+    list.remove_head();
+    list.remove_tail();
+    list.remove_tail();
     list.print();
 }

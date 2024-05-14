@@ -168,6 +168,86 @@ template <typename T> void dlist<T>::clear()
     tail = nullptr;
 }
 
+/**
+ * @brief Inserts a new node with the specified data at the appropriate position in the list.
+ *
+ * This function inserts a new node with the specified data at the appropriate position in the list.
+ * If the list is not empty, the data is inserted at the tail of the list.
+ * If the list is empty, the data is inserted at the head of the list.
+ *
+ * @tparam T The type of data stored in the list.
+ * @param data The data to be stored in the new node.
+ */
+template <typename T> void dlist<T>::insert(T data)
+{
+    if (head != nullptr)
+    {
+        insert_tail(data);
+    }
+    else
+    {
+        insert_head(data);
+    }
+}
+
+/**
+ * @brief Removes the node at the head of the list.
+ *
+ * If the list is not empty, the head pointer is updated to point to the next node.
+ * If the removed node was the only node in the list, both head and tail pointers are set to nullptr.
+ *
+ * @tparam T The type of data stored in the list.
+ */
+template <typename T> void dlist<T>::remove_head()
+{
+    if (head == nullptr)
+        return;
+
+    Node<T> *tmp = head;
+
+    if (head->next != nullptr)
+    {
+        head = tmp->next;
+
+        delete tmp;
+    }
+    else
+    {
+        head = nullptr;
+        tail = nullptr;
+
+        delete tmp;
+    }
+}
+
+/**
+ * @brief Removes the node at the tail of the list.
+ *
+ * If the list is not empty and contains more than one element,
+ * the tail pointer is updated to point to the previous node.
+ *
+ * @tparam T The type of data stored in the list.
+ */
+template <typename T> void dlist<T>::remove_tail()
+{
+    if (tail == nullptr || head == nullptr)
+        return;
+
+    // If there's only one element, remove it by calling remove_head
+    if (tail == head)
+    {
+        remove_head();
+        return;
+    }
+
+    Node<T> *tmp = tail;
+
+    tail = tmp->prev;
+    tail->next = nullptr;
+
+    delete tmp;
+}
+
 } // namespace cxc
 
 #endif
