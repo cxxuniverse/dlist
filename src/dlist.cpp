@@ -40,7 +40,7 @@ template <typename T> template <typename... Args> void dlist<T>::init(T first, A
         head = new_node;
         tail = new_node;
 
-        _events.trigger(Events::INCREASE_COUNT);
+        // _events.trigger(Events::INCREASE_COUNT);
     }
     else
     {
@@ -48,7 +48,7 @@ template <typename T> template <typename... Args> void dlist<T>::init(T first, A
         tail->next = new_node;
         tail = new_node;
 
-        _events.trigger(Events::INCREASE_COUNT);
+        // _events.trigger(Events::INCREASE_COUNT);
     }
 
     init(rest...);
@@ -173,7 +173,7 @@ template <typename T> void dlist<T>::insert_head(Node<T> *node)
         node->prev = nullptr;
         head = node;
 
-        _events.trigger(Events::INCREASE_COUNT);
+        // _events.trigger(Events::INCREASE_COUNT);
     }
     else
     {
@@ -182,7 +182,7 @@ template <typename T> void dlist<T>::insert_head(Node<T> *node)
         head = node;
         tail = node;
 
-        _events.trigger(Events::INCREASE_COUNT);
+        // _events.trigger(Events::INCREASE_COUNT);
     }
 }
 
@@ -215,7 +215,7 @@ template <typename T> void dlist<T>::insert_tail(Node<T> *node)
 
     tail = node;
 
-    _events.trigger(Events::INCREASE_COUNT);
+    // _events.trigger(Events::INCREASE_COUNT);
 }
 
 /**
@@ -243,7 +243,7 @@ template <typename T> void dlist<T>::clear()
     head = nullptr;
     tail = nullptr;
 
-    _events.trigger(Events::EMPTY_COUNT);
+    // _events.trigger(Events::EMPTY_COUNT);
 }
 
 /**
@@ -289,7 +289,7 @@ template <typename T> void dlist<T>::remove_head()
 
         delete tmp;
 
-        _events.trigger(Events::DECREASE_COUNT);
+        // _events.trigger(Events::DECREASE_COUNT);
     }
     else
     {
@@ -298,7 +298,7 @@ template <typename T> void dlist<T>::remove_head()
 
         delete tmp;
 
-        _events.trigger(Events::DECREASE_COUNT);
+        // _events.trigger(Events::DECREASE_COUNT);
     }
 }
 
@@ -329,7 +329,7 @@ template <typename T> void dlist<T>::remove_tail()
 
     delete tmp;
 
-    _events.trigger(Events::DECREASE_COUNT);
+    // _events.trigger(Events::DECREASE_COUNT);
 }
 
 /**
