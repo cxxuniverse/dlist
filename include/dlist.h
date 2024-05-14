@@ -1,6 +1,7 @@
 #ifndef CXC_DLIST_H
 #define CXC_DLIST_H
 
+#include "events.h"
 #include "node.h"
 
 #include <iostream>
@@ -8,16 +9,32 @@
 namespace cxc
 {
 
+enum class Events
+{
+    INCREASE_COUNT,
+    DECREASE_COUNT,
+    EMPTY_COUNT
+};
+
 template <typename T> struct dlist
 {
   private:
-    size_t size;
+    size_t m_size = 0;
     Node<T> *head = nullptr;
     Node<T> *tail = nullptr;
+    cxc::EventListener<Events> _events{};
 
-    template <typename... Args> void _init(T first, Args... rest);
+    template <typename... Args> void init(T first, Args... rest);
 
-    void _init();
+    void init();
+
+    void init_events();
+
+    void increase();
+
+    void decrease();
+
+    void empty();
 
   public:
     template <typename... Args> dlist(Args... args);

@@ -1,7 +1,6 @@
 #ifndef CXC_DLIST_CPP
 #define CXC_DLIST_CPP
 
-#include "../include/dlist.h"
 #include "dlist.h"
 
 namespace cxc
@@ -17,7 +16,7 @@ namespace cxc
  */
 template <typename T> template <typename... Args> dlist<T>::dlist(Args... args)
 {
-    _init(args...);
+    init(args...);
 }
 
 /**
@@ -31,22 +30,28 @@ template <typename T> template <typename... Args> dlist<T>::dlist(Args... args)
  * @param first The first argument used to initialize the list.
  * @param rest The remaining arguments used to initialize the list.
  */
-template <typename T> template <typename... Args> void dlist<T>::_init(T first, Args... rest)
+template <typename T> template <typename... Args> void dlist<T>::init(T first, Args... rest)
 {
+    init_events();
+
     if (is_empty())
     {
         Node<T> *new_node = new Node<T>(first, nullptr, nullptr);
         head = new_node;
         tail = new_node;
+
+        _events.trigger(Events::INCREASE_COUNT);
     }
     else
     {
         Node<T> *new_node = new Node<T>(first, tail, nullptr);
         tail->next = new_node;
         tail = new_node;
+
+        _events.trigger(Events::INCREASE_COUNT);
     }
 
-    _init(rest...);
+    init(rest...);
 }
 
 /**
@@ -54,8 +59,50 @@ template <typename T> template <typename... Args> void dlist<T>::_init(T first, 
  *
  * @tparam T The type of elements stored in the list.
  */
-template <typename T> void dlist<T>::_init()
+template <typename T> void dlist<T>::init()
 {
+}
+
+/**
+ * @brief Increases the count of elements in the list.
+ *
+ * @tparam T The type of elements stored in the list.
+ */
+template <typename T> void dlist<T>::increase()
+{
+    m_size++;
+}
+
+/**
+ * @brief Decreases the count of elements in the list.
+ *
+ * @tparam T The type of elements stored in the list.
+ */
+template <typename T> void dlist<T>::decrease()
+{
+    m_size--;
+}
+
+/**
+ * @brief Sets the count of elements to zero.
+ *
+ * @tparam T The type of elements stored in the list.
+ */
+template <typename T> void dlist<T>::empty()
+{
+    m_size = 0;
+}
+
+/**
+ * @brief Initializes event handlers for the doubly linked list.
+ *
+ * @tparam T The type of elements stored in the list.
+ */
+template <typename T> void dlist<T>::init_events()
+{
+    _events.add(Events::EMPTY_COUNT, [this]() { this.empty(); });
+    _events.add(Events::INCREASE_COUNT, [this]() { this.increase(); });
+    _events.add(Events::DECREASE_COUNT, [this]() { this.decrease(); });
 }
 
 /**
@@ -125,13 +172,18 @@ template <typename T> void dlist<T>::insert_head(Node<T> *node)
         node->next = head;
         node->prev = nullptr;
         head = node;
-        return;
-    }
 
-    node->prev = nullptr;
-    node->next = nullptr;
-    head = node;
-    tail = node;
+        _events.trigger(Events::INCREASE_COUNT);
+    }
+    else
+    {
+        node->prev = nullptr;
+        node->next = nullptr;
+        head = node;
+        tail = node;
+
+        _events.trigger(Events::INCREASE_COUNT);
+    }
 }
 
 /**
@@ -162,6 +214,8 @@ template <typename T> void dlist<T>::insert_tail(Node<T> *node)
     node->next = nullptr;
 
     tail = node;
+
+    _events.trigger(Events::INCREASE_COUNT);
 }
 
 /**
@@ -188,6 +242,8 @@ template <typename T> void dlist<T>::clear()
 
     head = nullptr;
     tail = nullptr;
+
+    _events.trigger(Events::EMPTY_COUNT);
 }
 
 /**
@@ -232,6 +288,8 @@ template <typename T> void dlist<T>::remove_head()
         head = tmp->next;
 
         delete tmp;
+
+        _events.trigger(Events::DECREASE_COUNT);
     }
     else
     {
@@ -239,6 +297,8 @@ template <typename T> void dlist<T>::remove_head()
         tail = nullptr;
 
         delete tmp;
+
+        _events.trigger(Events::DECREASE_COUNT);
     }
 }
 
@@ -268,6 +328,8 @@ template <typename T> void dlist<T>::remove_tail()
     tail->next = nullptr;
 
     delete tmp;
+
+    _events.trigger(Events::DECREASE_COUNT);
 }
 
 /**

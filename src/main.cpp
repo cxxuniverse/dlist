@@ -1,6 +1,4 @@
-#include "../include/dlist.h"
-
-// #include "../include/test.h"
+#include "dlist.h"
 
 int main()
 {
