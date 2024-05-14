@@ -287,11 +287,11 @@ template <typename T> void dlist<T>::reverse()
     tail->next = tail->prev;
     tail->prev = nullptr;
 
+    // beginning from the tail
     Node<T> *current = tail->next;
 
     while (current != nullptr)
     {
-
         Node<T> *prev = current->prev;
         current->prev = current->next;
         current->next = prev;
