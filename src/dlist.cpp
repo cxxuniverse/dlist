@@ -1,5 +1,5 @@
-#ifndef DLIST_CPP
-#define DLIST_CPP
+#ifndef CXC_DLIST_CPP
+#define CXC_DLIST_CPP
 
 #include "../include/dlist.h"
 #include "dlist.h"

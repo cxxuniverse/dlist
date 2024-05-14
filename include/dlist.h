@@ -1,5 +1,5 @@
-#ifndef DLIST_H
-#define DLIST_H
+#ifndef CXC_DLIST_H
+#define CXC_DLIST_H
 
 #include "node.h"
 
