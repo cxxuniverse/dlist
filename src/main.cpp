@@ -1,5 +1,7 @@
 #include "dlist.h"
 
+#include <algorithm>
+
 int main()
 {
     cxc::dlist<float> list_1 = {1, 2, 3, 4, 5, 6};
@@ -34,6 +36,28 @@ int main()
     std::cout << "Head: " << list.get_head() << std::endl;
     std::cout << "Tail: " << list.get_tail() << std::endl;
     std::cout << "size: " << list.size() << std::endl;
-    list.clear();
-    std::cout << "size: " << list.size() << std::endl;
+
+    std::cout << *(list.begin()) << std::endl;
+
+    for (float value : list)
+    {
+        std::cout << value << std::endl;
+    }
+
+    std::for_each(list.begin(), list.end(), [](float value) { std::cout << "value: " << value << std::endl; });
+
+    cxc::dlist<float>::Iterator it = list.begin();
+
+    while (it != list.end())
+    {
+        std::cout << "while: " << *it << std::endl;
+        ++it;
+    }
+
+    list.reverse();
+
+    for (auto it = list.begin(); it != list.end(); it++)
+    {
+        std::cout << "for: " << *it << std::endl;
+    }
 }

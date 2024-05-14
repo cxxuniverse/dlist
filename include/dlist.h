@@ -70,6 +70,91 @@ template <typename T> struct dlist
     bool only_element();
 
     void print();
+
+    /**
+     * @brief Iterator class for traversing a doubly linked list.
+     *
+     * This class provides an iterator for traversing a doubly linked list.
+     * It can be used with both STL and custom functions to iterate over the elements
+     * of the list.
+     *
+     * @tparam T The type of elements stored in the doubly linked list.
+     */
+    struct Iterator
+    {
+      private:
+        Node<T> *current;
+
+      public:
+        Iterator(Node<T> *ptr) : current(ptr)
+        {
+        }
+
+        Iterator()
+        {
+        }
+
+        T &operator*() const
+        {
+            return current->data;
+        }
+
+        Iterator &operator++()
+        {
+            current = current->next;
+            return *this;
+        }
+
+        Iterator &operator--()
+        {
+            current = current->prev;
+            return *this;
+        }
+
+        Iterator operator++(int)
+        {
+            Iterator tmp = *this;
+            current = current->next;
+            return tmp;
+        }
+
+        Iterator operator--(int)
+        {
+            Iterator tmp = *this;
+            current = current->prev;
+            return tmp;
+        }
+
+        bool operator==(const Iterator &other) const
+        {
+            return current == other.current;
+        }
+
+        bool operator!=(const Iterator &other) const
+        {
+            return current != other.current;
+        }
+    };
+
+    /**
+     * @brief Returns an iterator pointing to the first element in the list.
+     *
+     * @return An iterator pointing to the first element in the list.
+     */
+    Iterator begin()
+    {
+        return Iterator(head);
+    }
+
+    /**
+     * @brief Returns an iterator referring to the past-the-end element in the list.
+     *
+     * @return An iterator referring to the past-the-end element in the list.
+     */
+    Iterator end()
+    {
+        return Iterator(nullptr);
+    }
 };
 
 } // namespace cxc
