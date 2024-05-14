@@ -19,5 +19,5 @@ set_target_properties(main PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_S
 target_link_libraries(main dlist)
 
 target_compile_features(main PRIVATE cxx_std_20)
-target_compile_options(main PRIVATE -g -Wall -Werror)
+target_compile_options(main PRIVATE -g -Wall)
 
