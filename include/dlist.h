@@ -11,6 +11,7 @@ namespace cxc
 template <typename T> struct dlist
 {
   private:
+    size_t size;
     Node<T> *head = nullptr;
     Node<T> *tail = nullptr;
 
