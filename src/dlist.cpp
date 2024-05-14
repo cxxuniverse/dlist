@@ -33,7 +33,7 @@ template <typename T> template <typename... Args> dlist<T>::dlist(Args... args)
  */
 template <typename T> template <typename... Args> void dlist<T>::_init(T first, Args... rest)
 {
-    if (head == nullptr)
+    if (is_empty())
     {
         Node<T> *new_node = new Node<T>(first, nullptr, nullptr);
         head = new_node;
@@ -75,6 +75,28 @@ template <typename T> void dlist<T>::print()
 }
 
 /**
+ * @brief Checks if the list is empty.
+ *
+ * @tparam T The type of data stored in the list.
+ * @return true if the list is empty, false otherwise.
+ */
+template <typename T> bool dlist<T>::is_empty()
+{
+    return head == nullptr || tail == nullptr;
+}
+
+/**
+ * @brief Checks if the list contains only one element.
+ *
+ * @tparam T The type of data stored in the list.
+ * @return true if the list contains only one element, false otherwise.
+ */
+template <typename T> bool dlist<T>::only_element()
+{
+    return head == tail;
+}
+
+/**
  * @brief Inserts a new node with the specified data at the head of the doubly linked list.
  *
  * This function inserts a new node with the specified data at the head of the doubly linked list.
@@ -97,7 +119,7 @@ template <typename T> void dlist<T>::insert_head(T data)
  */
 template <typename T> void dlist<T>::insert_head(Node<T> *node)
 {
-    if (head != nullptr)
+    if (!is_empty())
     {
         head->prev = node;
         node->next = head;
@@ -152,7 +174,7 @@ template <typename T> void dlist<T>::insert_tail(Node<T> *node)
  */
 template <typename T> void dlist<T>::clear()
 {
-    if (head == nullptr)
+    if (is_empty())
         return;
 
     Node<T> *ptr = head;
@@ -180,7 +202,7 @@ template <typename T> void dlist<T>::clear()
  */
 template <typename T> void dlist<T>::insert(T data)
 {
-    if (head != nullptr)
+    if (!is_empty())
     {
         insert_tail(data);
     }
@@ -200,7 +222,7 @@ template <typename T> void dlist<T>::insert(T data)
  */
 template <typename T> void dlist<T>::remove_head()
 {
-    if (head == nullptr)
+    if (is_empty())
         return;
 
     Node<T> *tmp = head;
@@ -230,11 +252,11 @@ template <typename T> void dlist<T>::remove_head()
  */
 template <typename T> void dlist<T>::remove_tail()
 {
-    if (tail == nullptr || head == nullptr)
+    if (is_empty())
         return;
 
     // If there's only one element, remove it by calling remove_head
-    if (tail == head)
+    if (only_element())
     {
         remove_head();
         return;
@@ -246,6 +268,41 @@ template <typename T> void dlist<T>::remove_tail()
     tail->next = nullptr;
 
     delete tmp;
+}
+
+/**
+ * @brief Reverses the order of nodes in the list.
+ *
+ * If the list is not empty and contains more than one element,
+ * this function reverses the order of nodes in the list.
+ *
+ * @tparam T The type of data stored in the list.
+ */
+template <typename T> void dlist<T>::reverse()
+{
+    if (is_empty() || only_element())
+        return;
+
+    // swap tail's next and prev
+    tail->next = tail->prev;
+    tail->prev = nullptr;
+
+    Node<T> *current = tail->next;
+
+    while (current != nullptr)
+    {
+
+        Node<T> *prev = current->prev;
+        current->prev = current->next;
+        current->next = prev;
+
+        current = current->next;
+    }
+
+    // swap head and tail
+    Node<T> *tmp_head = head;
+    head = tail;
+    tail = tmp_head;
 }
 
 } // namespace cxc

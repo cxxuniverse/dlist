@@ -21,4 +21,15 @@ int main()
     list.remove_tail();
     list.remove_tail();
     list.print();
+
+    std::cout << "reverse order:" << std::endl;
+    list.insert(1000);
+    list.insert(1001);
+    list.insert_head(999);
+    list.insert(1002);
+    list.reverse();
+    list.print();
+    list.reverse();
+    list.insert_head(666);
+    list.print();
 }

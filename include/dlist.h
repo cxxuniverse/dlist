@@ -49,6 +49,7 @@ template <typename T> struct dlist
 
     // misc
     void reverse();
+    bool only_element();
 
     void print();
 };
