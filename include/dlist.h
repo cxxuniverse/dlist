@@ -62,7 +62,7 @@ template <typename T> struct dlist
     bool is_empty();
 
     // search
-    void find();
+    T &find() const;
     void count();
 
     // misc
