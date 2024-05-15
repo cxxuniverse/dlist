@@ -62,8 +62,6 @@ template <typename T> struct dlist
     bool is_empty();
 
     // search
-    T &find() const;
-    void count();
 
     // misc
     void reverse();
