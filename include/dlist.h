@@ -95,10 +95,7 @@ template <typename T> struct dlist
         {
         }
 
-        // Iterator()
-        // {
-        // }
-
+        // operator definitions for STL algorithms to work.
         T &operator*() const
         {
             return current->data;
