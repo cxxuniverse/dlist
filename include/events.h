@@ -28,7 +28,7 @@ template <typename EventEnum> struct EventListener : public EventListenerBase
     // Add an event handler.
     void add(EventEnum event_type, EventHandler callback_fn);
 
-    // Trigger an event.
+    // Trigger an event and invoke its corresponding handler.
     void trigger(EventEnum event_type);
 };
 
