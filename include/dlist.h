@@ -42,7 +42,6 @@ template <typename T> struct dlist
     template <typename... Args> dlist(Args... args);
 
     //  inseration / deletion
-
     void insert_head(T data);
     void insert_head(Node<T> *new_head);
 
