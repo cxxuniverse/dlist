@@ -27,13 +27,13 @@ template <typename T> struct dlist
 
     void init();
 
-    void init_events();
+    void empty();
 
     void increase();
 
     void decrease();
 
-    void empty();
+    void init_events();
 
     bool valid_position(size_t position);
 
@@ -52,28 +52,27 @@ template <typename T> struct dlist
     void insert(T data);
     void insert_at(size_t position, T data);
 
+    void clear();
     void remove_head();
     void remove_tail();
     void remove_at(size_t position);
-    void clear();
 
     // modify
     void change(size_t position, T data);
 
     // accessors
-    Node<T> *get_node(size_t position);
+    bool is_empty();
     const T &get_head();
     const T &get_tail();
     const size_t &size();
-    bool is_empty();
+    Node<T> *get_node(size_t position);
 
     // search
 
     // misc
+    void print();
     void reverse();
     bool only_element();
-
-    void print();
 
     /**
      * @brief Iterator class for traversing a doubly linked list.
