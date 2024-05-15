@@ -60,4 +60,19 @@ int main()
     {
         std::cout << "for: " << *it << std::endl;
     }
+
+    float val = 1000;
+    it = std::find(list.begin(), list.end(), val);
+
+    // Check if the element was found
+    if (it != list.end())
+    {
+        // Element found
+        std::cout << "Value " << *it << " found." << std::endl;
+    }
+    else
+    {
+        // Element not found
+        std::cout << "Value " << *it << " not found in the list" << std::endl;
+    }
 }

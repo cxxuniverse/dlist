@@ -82,6 +82,13 @@ template <typename T> struct dlist
      */
     struct Iterator
     {
+        // Define iterator traits required by standard library algorithms (important!)
+        using pointer = T *;
+        using value_type = T;
+        using reference = T &;
+        using difference_type = std::ptrdiff_t;
+        using iterator_category = std::bidirectional_iterator_tag;
+
       private:
         Node<T> *current;
 
@@ -90,9 +97,9 @@ template <typename T> struct dlist
         {
         }
 
-        Iterator()
-        {
-        }
+        // Iterator()
+        // {
+        // }
 
         T &operator*() const
         {
