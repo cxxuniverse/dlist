@@ -419,7 +419,7 @@ template <typename T> const size_t &dlist<T>::size()
  */
 template <typename T> bool dlist<T>::valid_position(size_t position)
 {
-    return position <= m_size;
+    return position <= m_size - 1;
 }
 
 /**
@@ -430,7 +430,7 @@ template <typename T> bool dlist<T>::valid_position(size_t position)
  */
 template <typename T> void dlist<T>::remove_at(size_t position)
 {
-    if (!valid_position(position + 1))
+    if (!valid_position(position))
         throw std::runtime_error("[Error] remove_at: position is invalid or out of bounds.");
 
     if (position == 0)
@@ -451,6 +451,8 @@ template <typename T> void dlist<T>::remove_at(size_t position)
         next.get_addr()->prev = prev.get_addr();
 
         delete current.get_addr();
+
+        _events.trigger(Events::DECREASE_COUNT);
     }
 }
 
@@ -471,7 +473,7 @@ template <typename T> void dlist<T>::insert_at(size_t position, T data)
     {
         insert_head(data);
     }
-    else if (position == m_size)
+    else if (position == m_size - 1)
     {
         insert_tail(data);
     }
@@ -484,7 +486,53 @@ template <typename T> void dlist<T>::insert_at(size_t position, T data)
 
         prev.get_addr()->next = new_node;
         next.get_addr()->prev = new_node;
+
+        _events.trigger(Events::INCREASE_COUNT);
     }
+}
+
+/**
+ * @brief Get the node at the specified position.
+ *
+ * @param position The position of the node to retrieve.
+ * @return Node<T>* Pointer to the node at the specified position.
+ * @throw std::runtime_error If the position is invalid or out of bounds.
+ */
+template <typename T> Node<T> *dlist<T>::get_node(size_t position)
+{
+    if (!valid_position(position))
+        throw std::runtime_error("[Error] get: position is invalid or out of bounds.");
+
+    if (position == 0)
+    {
+        return head;
+    }
+    else if (position == m_size - 1)
+    {
+        return tail;
+    }
+    else
+    {
+        auto it = std::next(begin(), position);
+        return it.get_addr();
+    }
+}
+
+/**
+ * @brief Change the data of the node at the specified position.
+ *
+ * @param position The position of the node to change.
+ * @param data The new data for the node.
+ * @throw std::runtime_error If the position is invalid or out of bounds.
+ */
+template <typename T> void dlist<T>::change(size_t position, T data)
+{
+    if (!valid_position(position))
+        throw std::runtime_error("[Error] change: position is invalid or out of bounds");
+
+    auto it = std::next(begin(), position);
+
+    it.get_addr()->data = data;
 }
 
 } // namespace cxc

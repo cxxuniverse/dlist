@@ -57,7 +57,11 @@ template <typename T> struct dlist
     void remove_at(size_t position);
     void clear();
 
+    // modify
+    void change(size_t position, T data);
+
     // accessors
+    Node<T> *get_node(size_t position);
     const T &get_head();
     const T &get_tail();
     const size_t &size();

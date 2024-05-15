@@ -84,4 +84,15 @@ int main()
 
     list.remove_at(4);
     list.print();
+
+    cxc::Node<float> *node = list.get_node(0);
+    std::cout << "node: " << node->data << std::endl;
+
+    list.change(4, 55555);
+
+    cxc::Node<float> *node1 = list.get_node(4);
+
+    std::cout << "node1: " << node1->data << std::endl;
+
+    list.print();
 }
