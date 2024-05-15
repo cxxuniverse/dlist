@@ -35,6 +35,8 @@ template <typename T> struct dlist
 
     void empty();
 
+    bool valid_position(int position);
+
   public:
     cxc::EventListener<Events> _events{};
     template <typename... Args> dlist(Args... args);
@@ -52,7 +54,7 @@ template <typename T> struct dlist
 
     void remove_head();
     void remove_tail();
-    void remove_at();
+    void remove_at(int position);
     void clear();
 
     // accessors

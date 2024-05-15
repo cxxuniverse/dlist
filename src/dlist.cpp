@@ -411,6 +411,49 @@ template <typename T> const size_t &dlist<T>::size()
     return m_size;
 }
 
+template <typename T> bool dlist<T>::valid_position(int position)
+{
+    return position >= m_size;
+}
+
+// if position = head || tail use remove_tail or remove_head
+template <typename T> void dlist<T>::remove_at(int position)
+{
+    if (!valid_position(position))
+        std::runtime_error("[Error] remove_at: position is invalid.");
+
+    if (position == 0)
+    {
+        remove_head();
+    }
+    else if (position == size)
+    {
+        remove_tail();
+    }
+    else
+    {
+    }
+}
+
+// if position is head or tail insert with existing fns, if different position use this fn
+template <typename T> void dlist<T>::insert_at(int position, T data)
+{
+    if (!valid_position(position))
+        std::runtime_error("[Error] insert_at: position is invalid.");
+
+    if (position == 0)
+    {
+        insert_head(data);
+    }
+    else if (position == size)
+    {
+        insert_tail(data);
+    }
+    else
+    {
+    }
+}
+
 } // namespace cxc
 
 #endif
