@@ -35,7 +35,7 @@ template <typename T> struct dlist
 
     void empty();
 
-    bool valid_position(int position);
+    bool valid_position(size_t position);
 
   public:
     cxc::EventListener<Events> _events{};
@@ -50,11 +50,11 @@ template <typename T> struct dlist
     void insert_tail(Node<T> *new_tail);
 
     void insert(T data);
-    void insert_at(int position, T data);
+    void insert_at(size_t position, T data);
 
     void remove_head();
     void remove_tail();
-    void remove_at(int position);
+    void remove_at(size_t position);
     void clear();
 
     // accessors
@@ -137,6 +137,15 @@ template <typename T> struct dlist
         bool operator!=(const Iterator &other) const
         {
             return current != other.current;
+        }
+
+        void set_data(T data)
+        {
+        }
+
+        Node<T> *get_addr()
+        {
+            return current;
         }
     };
 

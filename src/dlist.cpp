@@ -411,46 +411,79 @@ template <typename T> const size_t &dlist<T>::size()
     return m_size;
 }
 
-template <typename T> bool dlist<T>::valid_position(int position)
+/**
+ * @brief Checks if a given position is valid within the doubly linked list.
+ *
+ * @param position The position to check.
+ * @return true if the position is valid, false otherwise.
+ */
+template <typename T> bool dlist<T>::valid_position(size_t position)
 {
-    return position >= m_size;
+    return position <= m_size;
 }
 
-// if position = head || tail use remove_tail or remove_head
-template <typename T> void dlist<T>::remove_at(int position)
+/**
+ * @brief Removes the node at the specified position from the doubly linked list.
+ *
+ * @param position The position of the node to remove.
+ * @throws std::runtime_error if the position is invalid or out of bounds.
+ */
+template <typename T> void dlist<T>::remove_at(size_t position)
 {
-    if (!valid_position(position))
-        std::runtime_error("[Error] remove_at: position is invalid.");
+    if (!valid_position(position + 1))
+        throw std::runtime_error("[Error] remove_at: position is invalid or out of bounds.");
 
     if (position == 0)
     {
         remove_head();
     }
-    else if (position == size)
+    else if (position == m_size - 1)
     {
         remove_tail();
     }
     else
     {
+        auto prev = std::next(begin(), position - 1);
+        auto current = std::next(begin(), position);
+        auto next = std::next(begin(), position + 1);
+
+        prev.get_addr()->next = next.get_addr();
+        next.get_addr()->prev = prev.get_addr();
+
+        delete current.get_addr();
     }
 }
 
-// if position is head or tail insert with existing fns, if different position use this fn
-template <typename T> void dlist<T>::insert_at(int position, T data)
+/**
+ * @brief Inserts a new node with the given data at the specified position in the doubly linked list.
+ *
+ * @param position The position at which to insert the new node.
+ * @param data The data to be stored in the new node.
+ * @throws std::runtime_error if the position is invalid or out of bounds.
+ */
+template <typename T> void dlist<T>::insert_at(size_t position, T data)
 {
+
     if (!valid_position(position))
-        std::runtime_error("[Error] insert_at: position is invalid.");
+        throw std::runtime_error("[Error] insert_at: position is invalid or out of bounds.");
 
     if (position == 0)
     {
         insert_head(data);
     }
-    else if (position == size)
+    else if (position == m_size)
     {
         insert_tail(data);
     }
     else
     {
+        auto prev = std::next(begin(), position - 1);
+        auto next = std::next(begin(), position);
+
+        Node<T> *new_node = new Node(data, prev.get_addr(), next.get_addr());
+
+        prev.get_addr()->next = new_node;
+        next.get_addr()->prev = new_node;
     }
 }
 

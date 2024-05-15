@@ -75,4 +75,13 @@ int main()
     {
         std::cout << "not found\n";
     }
+
+    list.insert_at(0, 333);
+
+    list.print();
+
+    std::cout << "after remove \n";
+
+    list.remove_at(4);
+    list.print();
 }

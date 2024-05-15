@@ -9,11 +9,11 @@ template <typename T> struct Node
     Node *prev;
     Node *next;
 
-    Node(T _data, Node *_prev, Node *_next) : data(_data), prev(_prev), next(_next)
+    Node(T _data, Node *_prev = nullptr, Node *_next = nullptr) : data(_data), prev(_prev), next(_next)
     {
     }
 
-    static Node *create(T data, Node *prev, Node *next)
+    static Node *create(T data, Node *prev = nullptr, Node *next = nullptr)
     {
         return new Node(data, prev, next);
     }
