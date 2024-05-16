@@ -34,4 +34,4 @@ template <typename EventEnum> struct EventListener : public EventListenerBase
 
 } // namespace cxc
 
-#include "../src/events.cpp"
+#include "events.cpp"

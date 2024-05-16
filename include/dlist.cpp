@@ -1,5 +1,5 @@
-#ifndef CXC_DLIST_CPP
-#define CXC_DLIST_CPP
+#ifndef CXC_DLIST_TPP
+#define CXC_DLIST_TPP
 
 #include "dlist.h"
 
@@ -143,9 +143,11 @@ template <typename T> bool dlist<T>::only_element()
 }
 
 /**
- * @brief Inserts a new node with the specified data at the head of the doubly linked list.
+ * @brief Inserts a new node with the specified data at the head of the doubly
+ * linked list.
  *
- * This function inserts a new node with the specified data at the head of the doubly linked list.
+ * This function inserts a new node with the specified data at the head of the
+ * doubly linked list.
  *
  * @tparam T The type of data stored in the nodes.
  * @param data The data to be stored in the new node.
@@ -186,9 +188,11 @@ template <typename T> void dlist<T>::insert_head(Node<T> *node)
 }
 
 /**
- * @brief Inserts a new node with the specified data at the tail of the doubly linked list.
+ * @brief Inserts a new node with the specified data at the tail of the doubly
+ * linked list.
  *
- * This function inserts a new node with the specified data at the tail of the doubly linked list.
+ * This function inserts a new node with the specified data at the tail of the
+ * doubly linked list.
  *
  * @tparam T The type of data stored in the nodes.
  * @param data The data to be stored in the new node.
@@ -221,7 +225,8 @@ template <typename T> void dlist<T>::insert_tail(Node<T> *node)
  * @brief Clears the doubly linked list.
  *
  * This function deallocates memory for all nodes in the doubly linked list
- * and sets the head and tail pointers to nullptr, effectively clearing the list.
+ * and sets the head and tail pointers to nullptr, effectively clearing the
+ * list.
  *
  * @tparam T The type of data stored in the nodes.
  */
@@ -246,11 +251,13 @@ template <typename T> void dlist<T>::clear()
 }
 
 /**
- * @brief Inserts a new node with the specified data at the appropriate position in the list.
+ * @brief Inserts a new node with the specified data at the appropriate position
+ * in the list.
  *
- * This function inserts a new node with the specified data at the appropriate position in the list.
- * If the list is not empty, the data is inserted at the tail of the list.
- * If the list is empty, the data is inserted at the head of the list.
+ * This function inserts a new node with the specified data at the appropriate
+ * position in the list. If the list is not empty, the data is inserted at the
+ * tail of the list. If the list is empty, the data is inserted at the head of
+ * the list.
  *
  * @tparam T The type of data stored in the list.
  * @param data The data to be stored in the new node.
@@ -270,8 +277,9 @@ template <typename T> void dlist<T>::insert(T data)
 /**
  * @brief Removes the node at the head of the list.
  *
- * If the list is not empty, the head pointer is updated to point to the next node.
- * If the removed node was the only node in the list, both head and tail pointers are set to nullptr.
+ * If the list is not empty, the head pointer is updated to point to the next
+ * node. If the removed node was the only node in the list, both head and tail
+ * pointers are set to nullptr.
  *
  * @tparam T The type of data stored in the list.
  */
@@ -423,7 +431,8 @@ template <typename T> bool dlist<T>::valid_position(size_t position)
 }
 
 /**
- * @brief Removes the node at the specified position from the doubly linked list.
+ * @brief Removes the node at the specified position from the doubly linked
+ * list.
  *
  * @param position The position of the node to remove.
  * @throws std::runtime_error if the position is invalid or out of bounds.
@@ -457,7 +466,8 @@ template <typename T> void dlist<T>::remove_at(size_t position)
 }
 
 /**
- * @brief Inserts a new node with the given data at the specified position in the doubly linked list.
+ * @brief Inserts a new node with the given data at the specified position in
+ * the doubly linked list.
  *
  * @param position The position at which to insert the new node.
  * @param data The data to be stored in the new node.
@@ -465,7 +475,6 @@ template <typename T> void dlist<T>::remove_at(size_t position)
  */
 template <typename T> void dlist<T>::insert_at(size_t position, T data)
 {
-
     if (!valid_position(position))
         throw std::runtime_error("[Error] insert_at: position is invalid or out of bounds.");
 

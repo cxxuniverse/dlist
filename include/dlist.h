@@ -77,14 +77,15 @@ template <typename T> struct dlist
      * @brief Iterator class for traversing a doubly linked list.
      *
      * This class provides an iterator for traversing a doubly linked list.
-     * It can be used with both STL and custom functions to iterate over the elements
-     * of the list.
+     * It can be used with both STL and custom functions to iterate over the
+     * elements of the list.
      *
      * @tparam T The type of elements stored in the doubly linked list.
      */
     struct Iterator
     {
-        // Define iterator traits required by standard library algorithms (important!)
+        // Define iterator traits required by standard library algorithms
+        // (important!)
         using pointer = T *;
         using value_type = T;
         using reference = T &;
@@ -162,7 +163,8 @@ template <typename T> struct dlist
     }
 
     /**
-     * @brief Returns an iterator referring to the past-the-end element in the list.
+     * @brief Returns an iterator referring to the past-the-end element in the
+     * list.
      *
      * @return An iterator referring to the past-the-end element in the list.
      */
@@ -174,6 +176,6 @@ template <typename T> struct dlist
 
 } // namespace cxc
 
-#include "../src/dlist.cpp"
+#include "dlist.cpp"
 
 #endif
